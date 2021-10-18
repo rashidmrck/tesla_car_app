@@ -6,18 +6,28 @@ class HomeController extends ChangeNotifier {
   bool topLockStatus = true;
   bool bottomLockStatus = true;
 
+  int selectedTab = 0;
+
+  void changeSelectedTab(int? index) {
+    selectedTab = index!;
+    notifyListeners();
+  }
+
   void changeRightLockStatus() {
     rightLockStatus = !rightLockStatus;
     notifyListeners();
   }
+
   void changeLeftLockStatus() {
     leftLockStatus = !leftLockStatus;
     notifyListeners();
   }
+
   void changeTopLockStatus() {
     topLockStatus = !topLockStatus;
     notifyListeners();
   }
+
   void changeBottomLockStatus() {
     bottomLockStatus = !bottomLockStatus;
     notifyListeners();
