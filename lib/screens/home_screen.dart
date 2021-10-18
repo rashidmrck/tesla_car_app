@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tesla_animated_app/components/battery_status.dart';
 import 'package:tesla_animated_app/components/door_lock.dart';
 import 'package:tesla_animated_app/components/tesla_bottom_nav_bar.dart';
 import 'package:tesla_animated_app/constanins.dart';
@@ -89,6 +90,31 @@ class HomeScreen extends StatelessWidget {
                         child: DoorLock(
                           press: () => _homeController.changeBottomLockStatus(),
                           isLock: _homeController.bottomLockStatus,
+                        ),
+                      ),
+                    ),
+                    AnimatedOpacity(
+                      duration: const Duration(milliseconds: 600),
+                      opacity: _homeController.selectedTab == 1 ? 1 : 0,
+                      child: SvgPicture.asset(
+                        'assets/icons/Battery.svg',
+                        width: constraints.maxWidth * 0.45,
+                      ),
+                    ),
+                    AnimatedPositioned(
+                      duration: const Duration(milliseconds: 600),
+                      top: _homeController.selectedTab == 1 ? 0 : 75,
+                      curve: const Interval(0.6, 1),
+                      height: constraints.maxHeight,
+                      width: constraints.maxWidth,
+                      child: AnimatedOpacity(
+                        duration: const Duration(milliseconds: 600),
+                        curve: _homeController.selectedTab == 1
+                            ? const Interval(0.6, 1)
+                            : const Interval(0, 0),
+                        opacity: _homeController.selectedTab == 1 ? 1 : 0,
+                        child: BatteryStatus(
+                          constraints: constraints,
                         ),
                       ),
                     ),
