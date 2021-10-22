@@ -29,6 +29,31 @@ class HomeScreen extends StatelessWidget {
                 return Stack(
                   alignment: Alignment.center,
                   children: [
+                    AnimatedOpacity(
+                      duration: const Duration(milliseconds: 600),
+                      opacity: _homeController.selectedTab == 1 ? 1 : 0,
+                      child: SvgPicture.asset(
+                        'assets/icons/Battery.svg',
+                        width: constraints.maxWidth * 0.45,
+                      ),
+                    ),
+                    AnimatedPositioned(
+                      duration: const Duration(milliseconds: 600),
+                      top: _homeController.selectedTab == 1 ? 0 : 75,
+                      curve: const Interval(0.6, 1),
+                      height: constraints.maxHeight,
+                      width: constraints.maxWidth,
+                      child: AnimatedOpacity(
+                        duration: const Duration(milliseconds: 600),
+                        curve: _homeController.selectedTab == 1
+                            ? const Interval(0.6, 1)
+                            : const Interval(0, 0),
+                        opacity: _homeController.selectedTab == 1 ? 1 : 0,
+                        child: BatteryStatus(
+                          constraints: constraints,
+                        ),
+                      ),
+                    ),
                     Padding(
                       padding: EdgeInsets.symmetric(
                           vertical: constraints.maxHeight * 0.1),
@@ -66,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     AnimatedPositioned(
-                      top: _homeController.selectedTab == 0
+                      bottom: _homeController.selectedTab == 0
                           ? constraints.maxHeight * .13
                           : constraints.maxHeight / 2,
                       duration: defaultDuration,
@@ -80,7 +105,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     AnimatedPositioned(
-                      bottom: _homeController.selectedTab == 0
+                      top: _homeController.selectedTab == 0
                           ? constraints.maxHeight * .13
                           : constraints.maxHeight / 2,
                       duration: defaultDuration,
@@ -90,31 +115,6 @@ class HomeScreen extends StatelessWidget {
                         child: DoorLock(
                           press: () => _homeController.changeBottomLockStatus(),
                           isLock: _homeController.bottomLockStatus,
-                        ),
-                      ),
-                    ),
-                    AnimatedOpacity(
-                      duration: const Duration(milliseconds: 600),
-                      opacity: _homeController.selectedTab == 1 ? 1 : 0,
-                      child: SvgPicture.asset(
-                        'assets/icons/Battery.svg',
-                        width: constraints.maxWidth * 0.45,
-                      ),
-                    ),
-                    AnimatedPositioned(
-                      duration: const Duration(milliseconds: 600),
-                      top: _homeController.selectedTab == 1 ? 0 : 75,
-                      curve: const Interval(0.6, 1),
-                      height: constraints.maxHeight,
-                      width: constraints.maxWidth,
-                      child: AnimatedOpacity(
-                        duration: const Duration(milliseconds: 600),
-                        curve: _homeController.selectedTab == 1
-                            ? const Interval(0.6, 1)
-                            : const Interval(0, 0),
-                        opacity: _homeController.selectedTab == 1 ? 1 : 0,
-                        child: BatteryStatus(
-                          constraints: constraints,
                         ),
                       ),
                     ),
